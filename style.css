@@ -1,0 +1,111 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-size: 16px;
+
+  --gap: 30px;
+  --gap-half: calc(var(--gap) / 2);
+  --accent: #a7b2f0;
+}
+
+header {
+  width: 100%;
+  background-color: white;
+
+  border-radius: 0 0 1rem 1rem;
+  padding: 0.3rem;
+
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 15%;
+  gap: var(--gap);
+
+  background-color: whitesmoke;
+}
+
+main {
+  width: 90%;
+  height: 100%;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-half);
+
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+#add-book-btn {
+  padding: 0.5rem;
+
+  width: 25%;
+  align-self: center;
+
+  border: 0;
+  border-radius: 0.4rem;
+  outline: 0;
+  background-color: var(--accent);
+  color: white;
+  font-size: 1.2rem;
+}
+
+ul {
+  list-style: none;
+  height: 100%;
+
+  display: grid;
+  gap: var(--gap-half);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: 1fr 1fr;
+  grid-auto-rows: 1fr;
+}
+
+.book-legend,
+.book-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  font-size: 1.3rem;
+}
+
+li {
+  background-color: hsl(231, 31%, 96%);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: hsl(231, 10%, 42%);
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+}
+
+footer {
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+  display: flex;
+  justify-content: center;
+
+  padding: 0.3rem;
+}
