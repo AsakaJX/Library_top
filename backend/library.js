@@ -7,6 +7,10 @@ export function Book(title, author, isRead = false) {
   this.isRead = isRead;
 }
 
+Book.prototype.changeStatus = function (newStatus) {
+  this.isRead = newStatus;
+};
+
 export function addBookToLibrary(title, author, isRead = false) {
   library.push(new Book(title, author, isRead));
 }

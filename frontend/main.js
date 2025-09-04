@@ -104,7 +104,7 @@ bookStatusBtn.forEach((item) => {
 
     library.forEach((element) => {
       if (element.id === uuid) {
-        element.isRead = !element.isRead;
+        element.changeStatus(!element.isRead);
 
         const elemStatus = document
           .getElementById(uuid)
