@@ -12,8 +12,11 @@
   --gap: 30px;
   --gap-half: calc(var(--gap) / 2);
   --accent: #a7b2f0;
+  --accent-light: #c5ccf1;
+  --accent-2: #919de4;
   --accent-medium: hsl(231, 71%, 85%);
   --accent-light: hsl(231, 71%, 88%);
+  --shadow: #6666664b;
 }
 
 header {
@@ -29,6 +32,12 @@ header {
 
 h1 {
   font-size: 2rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+h2 {
+  font-size: 1.5rem;
   font-weight: 500;
   color: var(--accent);
 }
@@ -144,8 +153,8 @@ ul {
 
 #add-book-btn:hover,
 #add-book-btn:focus-visible,
-.book-read-button:hover,
-.book-read-button:focus-visible {
+button:hover,
+button:focus-visible {
   outline-offset: 2px;
   outline: 1px solid var(--accent-light);
 }
@@ -201,4 +210,123 @@ a:hover {
 a:focus-visible {
   border-radius: 0.2rem;
   outline: 1px solid var(--accent-medium);
+}
+
+#add-book-dialog {
+  padding: 2.2rem;
+  border: 2px solid var(--accent);
+  border-radius: 0.5rem;
+
+  /* width: clamp(35%, 15%, 25%);
+  height: calc(max-content + 35%); */
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+
+  box-shadow: 0 0 25px 2px var(--shadow);
+}
+
+#add-book-dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+::backdrop {
+  background-color: #000;
+  opacity: 0.17;
+}
+
+.close-add-book-dialog-container {
+  width: 100%;
+}
+
+#close-add-book-dialog {
+  width: 100%;
+}
+
+#add-book-dialog form legend {
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  color: var(--accent-2);
+}
+
+#add-book-dialog form label {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+#add-book-dialog form input[type='text'] {
+  border: 0;
+  border-bottom: 1px solid var(--shadow);
+
+  padding: 0.5rem;
+}
+
+#add-book-dialog form input[type='text']:focus-visible {
+  outline: 0;
+
+  border-color: var(--accent);
+}
+
+.input-container.chk-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 1rem; */
+}
+
+#add-book-dialog form input[type='checkbox'] {
+  margin: 0;
+  padding: 0;
+
+  width: 1em;
+  height: 1em;
+
+  accent-color: var(--accent);
+  appearance: none;
+
+  border: 1px solid var(--accent-2);
+  border-radius: 0.15rem;
+
+  overflow: hidden;
+
+  position: relative;
+}
+
+#add-book-dialog form input[type='checkbox']:focus-visible {
+  outline: 1px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+#add-book-dialog form input[type='checkbox']::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 250ms;
+  overflow: hidden;
+  /* border-radius: 0.1rem; */
+}
+
+#add-book-dialog form input[type='checkbox']:checked::after {
+  background-color: var(--accent);
+  transition: 250ms;
+}
+
+#add-book-dialog form button {
+  margin-top: 1.5rem;
+
+  background-color: var(--accent);
+  color: white;
+  padding: 0.25rem;
+  border: 0;
+  border-radius: 0.4rem;
 }
