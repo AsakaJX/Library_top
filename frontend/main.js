@@ -35,6 +35,8 @@ function redrawListElements() {
   });
 }
 
+// document;
+
 redrawListElements();
 
 // add book dialog
