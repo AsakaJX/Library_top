@@ -1,4 +1,8 @@
-export const library = [];
+export let library = [];
+
+export function updateLibraryArray(array) {
+  library = array;
+}
 
 export function Book(title, author, isRead = false) {
   this.id = crypto.randomUUID();

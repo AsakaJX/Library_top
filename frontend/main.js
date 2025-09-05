@@ -3,6 +3,7 @@ import {
   Book,
   addBookToLibrary,
   printAllBooks,
+  updateLibraryArray,
 } from '../backend/library.js';
 
 console.log('adding test books to library...');
@@ -38,6 +39,7 @@ function redrawListElements() {
 // document;
 
 redrawListElements();
+reHookButtons();
 
 // add book dialog
 
@@ -49,7 +51,7 @@ const bookTitle = document.querySelector('#add-book-title');
 const bookAuthor = document.querySelector('#add-book-author');
 const bookStatus = document.querySelector('#add-book-status');
 
-openDialogButton.addEventListener('click', (event) => {
+openDialogButton.addEventListener('click', () => {
   bookTitle.value = '';
   bookAuthor.value = '';
   bookStatus.checked = false;
@@ -66,56 +68,72 @@ closeDialogButton.addEventListener('click', (event) => {
 
   addBookToLibrary(bookTitle.value, bookAuthor.value, bookStatus.checked);
   redrawListElements();
+  reHookButtons();
 
   dialog.close();
 });
 
 // book management logic
 
-const bookRemoveBtn = document.querySelectorAll(
-  '#book-list li .book-buttons-container .book-remove-button'
-);
+function handleRemoveBook(event) {
+  let parent = event.target;
 
-bookRemoveBtn.forEach((item) => {
-  item.addEventListener('click', (event) => {
-    let parent = event.target;
+  while (String(parent.tagName).toLowerCase() !== 'li') {
+    parent = parent.parentElement;
+  }
 
-    while (String(parent.tagName).toLowerCase() !== 'li') {
-      parent = parent.parentElement;
+  updateLibraryArray(
+    library.filter((elem) => {
+      return elem.id !== parent.getAttribute('id');
+    })
+  );
+
+  redrawListElements();
+  reHookButtons();
+}
+
+function handleUpdateStatusBook(event) {
+  let parent = event.target;
+
+  while (String(parent.tagName).toLowerCase() !== 'li') {
+    parent = parent.parentElement;
+  }
+
+  const uuid = parent.getAttribute('id');
+
+  library.forEach((element) => {
+    if (element.id === uuid) {
+      element.changeStatus(!element.isRead);
+
+      const elemStatus = document
+        .getElementById(uuid)
+        .querySelector('.book-status');
+      elemStatus.textContent = `${element.isRead ? 'Already read' : "Hasn't been read yet"}`;
+
+      const elemIsReadButton = document
+        .getElementById(uuid)
+        .querySelector('.book-read-button');
+      elemIsReadButton.textContent = `${element.isRead ? 'Not read' : 'Read'}`;
     }
-
-    parent.remove();
   });
-});
+}
 
-const bookStatusBtn = document.querySelectorAll(
-  '#book-list li .book-buttons-container .book-read-button'
-);
+function reHookButtons() {
+  const bookRemoveBtn = document.querySelectorAll(
+    '#book-list li .book-buttons-container .book-remove-button'
+  );
 
-bookStatusBtn.forEach((item) => {
-  item.addEventListener('click', (event) => {
-    let parent = event.target;
+  const bookStatusBtn = document.querySelectorAll(
+    '#book-list li .book-buttons-container .book-read-button'
+  );
 
-    while (String(parent.tagName).toLowerCase() !== 'li') {
-      parent = parent.parentElement;
-    }
-
-    const uuid = parent.getAttribute('id');
-
-    library.forEach((element) => {
-      if (element.id === uuid) {
-        element.changeStatus(!element.isRead);
-
-        const elemStatus = document
-          .getElementById(uuid)
-          .querySelector('.book-status');
-        elemStatus.textContent = `${element.isRead ? 'Already read' : "Hasn't been read yet"}`;
-
-        const elemIsReadButton = document
-          .getElementById(uuid)
-          .querySelector('.book-read-button');
-        elemIsReadButton.textContent = `${element.isRead ? 'Not read' : 'Read'}`;
-      }
-    });
+  bookRemoveBtn.forEach((item) => {
+    item.removeEventListener('click', handleRemoveBook);
+    item.addEventListener('click', (event) => handleRemoveBook(event));
   });
-});
+
+  bookStatusBtn.forEach((item) => {
+    item.removeEventListener('click', handleUpdateStatusBook);
+    item.addEventListener('click', (event) => handleUpdateStatusBook(event));
+  });
+}
